@@ -9,3 +9,4 @@ coverage/
 *.sw*
 *.un~
 .vscode/
+logs/
