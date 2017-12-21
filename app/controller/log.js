@@ -6,7 +6,7 @@ class LogController extends Controller {
 
     async agent() {
         console.log('log:', this.ctx.request.body);
-        const fsRes = await fs.readFileSync(__dirname + '../../../logs/egg/egg-agent.log');
+        const fsRes = await fs.readFileSync(process.cwd() + '/logs/egg/egg-agent.log');
         this.ctx.body = {
             code: 200,
             msg: '成功',
@@ -15,7 +15,7 @@ class LogController extends Controller {
     }
     async web() {
         console.log('log:', this.ctx.request.body);
-        const fsRes = await fs.readFileSync(__dirname + '../../../logs/egg/egg-web.log');
+        const fsRes = await fs.readFileSync(process.cwd() + '/logs/egg/egg-web.log');
         this.ctx.body = {
             code: 200,
             msg: '成功',
@@ -24,7 +24,7 @@ class LogController extends Controller {
     }
     async error() {
         console.log('log:', this.ctx.request.body);
-        const fsRes = await fs.readFileSync(__dirname + '../../../logs/egg/common-error.log');
+        const fsRes = await fs.readFileSync(process.cwd() + '/logs/egg/common-error.log');
         this.ctx.body = {
             code: 200,
             msg: '成功',
