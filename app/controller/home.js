@@ -1,7 +1,5 @@
 'use strict';
-
-const request = require('request-promise');
-const cheerio = require('cheerio');
+const fs = require('fs');
 const Controller = require('egg').Controller;
 
 class HomeController extends Controller {
