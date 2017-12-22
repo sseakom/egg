@@ -11,6 +11,7 @@ module.exports = app => {
     router.post('/zhaopin', controller.home.zhaopin);
 
     router.post('/tiobe', controller.home.tiobe);
+    router.post('/chart', controller.home.chart);
 
     router.post('/log/agent', controller.log.agent);
     router.post('/log/web', controller.log.web);

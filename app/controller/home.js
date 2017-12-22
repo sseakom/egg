@@ -25,6 +25,24 @@ class HomeController extends Controller {
             result: zhaopinRes,
         }
     }
+    async chart() {
+        console.log('chart:', this.ctx.request.body);
+        let res = []
+        const jobRes = await this.ctx.model.Job.find({ name: 'java' })
+        for (let key in jobRes) {
+            res.push({ date: new Date(parseInt(jobRes[key].time)).Format("yyyy-MM-dd") })
+            let list = await this.ctx.model.Job.find({ time: jobRes[key].time }).select('-_id name count')
+            for (let k in list) {
+                res[res.length - 1][list[k].name] = list[k].count;
+            }
+        }
+        console.log('res: ', res);
+        this.ctx.body = {
+            code: 200,
+            msg: '成功',
+            result: res,
+        }
+    }
 }
 
 module.exports = HomeController;
