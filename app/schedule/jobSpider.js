@@ -6,7 +6,7 @@ class JobSpider extends Subscription {
     // 通过 schedule 属性来设置定时任务的执行间隔等配置
     static get schedule() {
         return {
-            interval: '1d',
+            interval: '12h',
             type: 'all',
         };
     }
@@ -61,7 +61,6 @@ class JobSpider extends Subscription {
                 }
             })
         }
-        console.log('rankList: ', rankList);
         const jobRes = await this.ctx.model.Job.find({ time: thisDate });
         console.log('jobRes.length: ', jobRes.length);
         if (rankList.length && !jobRes.length) {

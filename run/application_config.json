@@ -259,8 +259,7 @@
       "responseTimeout": 60000
     },
     "middleware": [
-      "request",
-      "query"
+      "errorHandler"
     ],
     "coreMiddlewares": [
       "cors",
@@ -274,12 +273,10 @@
       "i18n"
     ],
     "appMiddlewares": [
-      "request",
-      "query"
+      "errorHandler"
     ],
     "appMiddleware": [
-      "request",
-      "query"
+      "errorHandler"
     ],
     "multipartParseOptions": {
       "autoFields": false,

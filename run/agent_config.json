@@ -231,8 +231,7 @@
       "responseTimeout": 60000
     },
     "middleware": [
-      "request",
-      "query"
+      "errorHandler"
     ],
     "coreMiddlewares": [
       "meta",
@@ -242,12 +241,10 @@
       "overrideMethod"
     ],
     "appMiddlewares": [
-      "request",
-      "query"
+      "errorHandler"
     ],
     "appMiddleware": [
-      "request",
-      "query"
+      "errorHandler"
     ]
   },
   "plugins": {

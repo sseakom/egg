@@ -6,12 +6,12 @@
 module.exports = app => {
     const { router, controller } = app;
 
-    router.post('/', controller.home.index);
+    router.get('/', controller.home.index);
 
-    router.post('/zhaopin', controller.home.zhaopin);
+    router.post('/zhaopin', controller.post.zhaopin);
 
-    router.post('/tiobe', controller.home.tiobe);
-    router.post('/chart', controller.home.chart);
+    router.post('/tiobe', controller.post.tiobe);
+    router.post('/chart', controller.post.chart);
 
     router.post('/log/agent', controller.log.agent);
     router.post('/log/web', controller.log.web);

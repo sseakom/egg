@@ -12,6 +12,9 @@ module.exports = appInfo => {
             app: true,
             // 是否加载到 agent 上，默认关闭
             agent: false,
+        },
+        logger: {
+            consoleLevel: 'INFO',
         }
     };
 
@@ -19,7 +22,7 @@ module.exports = appInfo => {
     config.keys = appInfo.name + '_1513070020499_1566';
 
     // add your config here
-    config.middleware = ['request', 'query'];
+    config.middleware = ['notfoundHandler', 'errorHandler'];
 
     return config;
 };

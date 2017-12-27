@@ -3,6 +3,7 @@ module.exports = app => {
     app.beforeStart(async() => {
         console.log('beforeStart');
     });
+
     Date.prototype.Format = function(format) {
         var o = {
             "M+": this.getMonth() + 1, //month

@@ -9,6 +9,24 @@
     "agent": "C:\\workspace\\egg\\config\\config.default.js",
     "options": "C:\\workspace\\egg\\node_modules\\_egg-mongoose@2.1.1@egg-mongoose\\config\\config.default.js"
   },
+  "logger": {
+    "consoleLevel": "C:\\workspace\\egg\\config\\config.default.js",
+    "dir": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
+    "encoding": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
+    "env": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
+    "level": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
+    "disableConsoleAfterReady": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
+    "outputJSON": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
+    "buffer": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
+    "appLogName": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
+    "coreLogName": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
+    "agentLogName": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
+    "errorLogName": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
+    "coreLogger": {
+      "consoleLevel": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.local.js"
+    },
+    "allowDebugAtProd": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js"
+  },
   "keys": "C:\\workspace\\egg\\config\\config.default.js",
   "middleware": "C:\\workspace\\egg\\config\\config.default.js",
   "jsonp": {
@@ -169,24 +187,6 @@
       "depth": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
       "parameterLimit": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js"
     }
-  },
-  "logger": {
-    "dir": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
-    "encoding": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
-    "env": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
-    "level": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
-    "consoleLevel": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
-    "disableConsoleAfterReady": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
-    "outputJSON": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
-    "buffer": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
-    "appLogName": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
-    "coreLogName": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
-    "agentLogName": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
-    "errorLogName": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
-    "coreLogger": {
-      "consoleLevel": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.local.js"
-    },
-    "allowDebugAtProd": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js"
   },
   "httpclient": {
     "enableDNSCache": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\config.default.js",
