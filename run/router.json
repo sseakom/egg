@@ -18,6 +18,18 @@
       "POST"
     ],
     "paramNames": [],
+    "path": "/allHouse",
+    "regexp": "/^\\/allHouse(?:\\/(?=$))?$/",
+    "stack": [
+      "wrappedController"
+    ]
+  },
+  {
+    "name": null,
+    "methods": [
+      "POST"
+    ],
+    "paramNames": [],
     "path": "/zhaopin",
     "regexp": "/^\\/zhaopin(?:\\/(?=$))?$/",
     "stack": [

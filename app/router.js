@@ -8,6 +8,8 @@ module.exports = app => {
 
     router.get('/', controller.home.index);
 
+    router.post('/allHouse', controller.post.allHouse);
+
     router.post('/zhaopin', controller.post.zhaopin);
 
     router.post('/tiobe', controller.post.tiobe);

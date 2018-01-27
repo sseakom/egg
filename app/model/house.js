@@ -11,8 +11,10 @@ module.exports = app => {
         district: { type: String },
         price: { type: Number },
         total: { type: Number },
-        time: { type: String },
         postdate: { type: String },
+        agent: { type: String },
+        company: { type: String },
+        crawlingDate: { type: String },
     });
 
     return mongoose.model('House', HouseSchema);

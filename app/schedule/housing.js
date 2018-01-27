@@ -15,7 +15,7 @@ class Housing extends Subscription {
     // subscribe 是真正定时任务执行时被运行的函数
     async subscribe() {
         console.log("HousingSchedule");
-        const thisDate = new Date().setHours(0, 0, 0, 0) + "";
+        const crawlingDate = new Date().setHours(0, 0, 0, 0) + "";
         const self = this;
         let totalPage = 1;
         const indexBody = await request("http://wuhu.58.com/ershoufang/");
@@ -26,76 +26,74 @@ class Housing extends Subscription {
             }
         });
         console.log('totalPage: ', totalPage);
-
+        // totalPage = 1
         for (let i = 1; i <= totalPage; i++) {
             const url = "http://wuhu.58.com/ershoufang/pn" + i;
             const body = await request(url);
             const loaded = cheerio.load(body);
             await spider(loaded);
-            await Ut.sleep(10000);
+
+            await Ut.sleep(60000);
         }
 
         async function spider(cheerio) {
             cheerio('.house-list-wrap').find('li').each(function() {
+                let parms = {};
                 const logr = cheerio(this).attr('logr');
-                const id = logr.substr(0, logr.indexOf('_sortid')).split('_')[3];
-                const postdate = logr.substr(logr.indexOf('postdate') + 9, 13);
-                const title = cheerio(this).find('.title').find('a').text().trim();
+                parms.id = logr.substr(0, logr.indexOf('_sortid')).split('_')[3];
+                parms.postdate = logr.substr(logr.indexOf('postdate') + 9, 13);
+                parms.title = cheerio(this).find('.title').find('a').text().trim();
 
                 const baseinfo = cheerio(this).find('.baseinfo');
-                const type = baseinfo.eq(0).find('span').eq(0).text().replace(/\s+/g, '');
-                const area = baseinfo.eq(0).find('span').eq(1).text().replace('㎡', '').trim();
-                const towards = baseinfo.eq(0).find('span').eq(2).text().trim();
-                const floor = baseinfo.eq(0).find('span').eq(3).text().trim();
+
+                parms.type = baseinfo.eq(0).find('span').eq(0).text().replace(/\s+/g, '');
+                parms.area = baseinfo.eq(0).find('span').eq(1).text().replace('㎡', '').trim();
+                parms.towards = baseinfo.eq(0).find('span').eq(2).text().trim();
+                parms.floor = baseinfo.eq(0).find('span').eq(3).text().trim();
 
                 const baseinfoA = baseinfo.eq(1).find('a');
-                let community = '';
-                let district = '';
                 if (baseinfoA.length >= 2) {
-                    community = baseinfoA.eq(0).text().trim();
-                    district = baseinfoA.eq(1).text().trim();
+                    parms.community = baseinfoA.eq(0).text().trim();
+                    parms.district = baseinfoA.eq(1).text().trim();
                 } else if (baseinfoA.length == 1) {
-                    district = baseinfoA.eq(0).text().trim();
+                    parms.community = '';
+                    parms.district = baseinfoA.eq(0).text().trim();
                 }
-                const jjr = cheerio(this).find('.jjrname-outer').text().replace(/\s+/g, '');
-                // console.log('jjr: ', jjr);
-                const price = cheerio(this).find('.price').find('.unit').text().replace('元/㎡', '').trim();
-                // console.log('id: ', id);
-                // console.log('标题: ', title);
-                // console.log('户型: ', type);
-                // console.log('面积: ', area + '㎡');
-                // console.log('朝向: ', towards);
-                // console.log('楼层:', floor);
-                // console.log('小区: ', community);
-                // console.log('区县: ', district);
-                // console.log('平方价: ', price + '元/㎡');
-                // console.log('总价', parseInt(area * price) / 10000 + '万元');
-                addItem(id, title, type, area, towards, floor, community, district, price, postdate);
+                parms.agent = cheerio(this).find('.jjrname-outer').text().replace(/\s+/g, '');
+                parms.company = cheerio(this).find('.jjrinfo').text().replace(/\s+/g, '_').split('_')[1].replace('－', '').trim();
+
+                parms.price = cheerio(this).find('.price').find('.unit').text().replace('元/㎡', '').trim();
+                addItem(parms);
             })
 
         }
 
-        async function addItem(id, title, type, area, towards, floor, community, district, price, postdate) {
-            const HouseRes = await self.ctx.model.House.find({ time: thisDate, id });
+        async function addItem(parms) {
+            const HouseRes = await self.ctx.model.House.find({
+                postdate: parms.postdate,
+                id: parms.id
+            });
 
             if (!HouseRes.length) {
                 const res = await self.ctx.model.House.create({
-                    id,
-                    title,
-                    type,
-                    area,
-                    towards,
-                    floor,
-                    community,
-                    district,
-                    price,
-                    total: parseInt(area * price) / 10000,
-                    time: thisDate,
-                    postdate
+                    id: parms.id,
+                    title: parms.title,
+                    type: parms.type,
+                    area: parms.area,
+                    towards: parms.towards,
+                    floor: parms.floor,
+                    community: parms.community,
+                    district: parms.district,
+                    price: parms.price,
+                    total: parseInt(parms.area * parms.price) / 10000,
+                    postdate: parms.postdate,
+                    agent: parms.agent,
+                    company: parms.company,
+                    crawlingDate
                 })
-                console.log(id + ':记录成功');
+                console.log(parms.id + ':记录成功');
             } else {
-                console.log(id + ':有重复记录');
+                console.log(parms.id + ':有重复记录', parms.title);
             }
         }
         // const length = await this.ctx.model.House.find({});

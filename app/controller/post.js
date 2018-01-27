@@ -3,6 +3,27 @@ const fs = require('fs');
 const Controller = require('egg').Controller;
 
 class PostController extends Controller {
+    async allHouse() {
+        console.log('allHouse:', this.ctx.request.body);
+        const crawlingDate = new Date().setHours(0, 0, 0, 0) + "";
+        const req = this.ctx.request.body;
+        let pageSize = 10;
+        let pageNo = 1;
+        if (req.pageSize > 0) {
+            pageSize = req.pageSize
+        }
+        if (req.pageNo > 0) {
+            pageNo = req.pageNo
+        }
+        const allRes = await this.ctx.model.House.find({ crawlingDate });
+        const res = await this.ctx.model.House.find({ crawlingDate }).sort({ postdate: 1 }).limit(pageSize).skip(pageSize * (pageNo - 1));
+        this.ctx.body = {
+            code: 200,
+            msg: '成功',
+            count: allRes.length,
+            result: res,
+        };
+    }
     async tiobe() {
         console.log('tiobe:', this.ctx.request.body);
         const rankRes = await this.ctx.model.Rank.find();
