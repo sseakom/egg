@@ -16,7 +16,7 @@ class PostController extends Controller {
             pageNo = req.pageNo
         }
         const allRes = await this.ctx.model.House.find({ crawlingDate });
-        const res = await this.ctx.model.House.find({ crawlingDate }).sort({ postdate: 1 }).limit(pageSize).skip(pageSize * (pageNo - 1));
+        const res = await this.ctx.model.House.find({ crawlingDate }).limit(pageSize).skip(pageSize * (pageNo - 1));
         this.ctx.body = {
             code: 200,
             msg: '成功',
