@@ -41,6 +41,8 @@ class Housing extends Subscription {
                 let parms = {};
                 const logr = cheerio(this).attr('logr');
                 parms.id = logr.substr(0, logr.indexOf('_sortid')).split('_')[3];
+                parms.logr = logr.substr(0, logr.indexOf('_sortid')).split('_')[2] + parms.id;
+
                 parms.postdate = logr.substr(logr.indexOf('postdate') + 9, 13);
                 parms.title = cheerio(this).find('.title').find('a').text().trim();
 
@@ -71,33 +73,39 @@ class Housing extends Subscription {
         async function addItem(parms) {
             const HouseRes = await self.ctx.model.House.find({
                 postdate: parms.postdate,
-                id: parms.id
+                logr: parms.logr,
             });
-
             if (!HouseRes.length) {
-                const res = await self.ctx.model.House.create({
-                    id: parms.id,
-                    title: parms.title,
-                    type: parms.type,
-                    area: parms.area,
-                    towards: parms.towards,
-                    floor: parms.floor,
-                    community: parms.community,
-                    district: parms.district,
-                    price: parms.price,
-                    total: parseInt(parms.area * parms.price) / 10000,
-                    postdate: parms.postdate,
-                    agent: parms.agent,
-                    company: parms.company,
-                    crawlingDate
-                })
-                console.log(parms.id + ':记录成功');
+                add(parms);
             } else {
-                console.log(parms.id + ':有重复记录', parms.title);
+                if (HouseRes[HouseRes.length - 1].crawlingDate == crawlingDate) {
+                    console.log(parms.id + ':有重复记录', parms.title);
+                } else {
+                    add(parms);
+                }
             }
         }
-        // const length = await this.ctx.model.House.find({});
-        // console.log('length: ', length.length);
+
+        async function add(parms) {
+            await self.ctx.model.House.create({
+                logr: parms.logr,
+                id: parms.id,
+                title: parms.title,
+                type: parms.type,
+                area: parms.area,
+                towards: parms.towards,
+                floor: parms.floor,
+                community: parms.community,
+                district: parms.district,
+                price: parms.price,
+                total: parseInt(parms.area * parms.price) / 10000,
+                postdate: parms.postdate,
+                agent: parms.agent,
+                company: parms.company,
+                crawlingDate
+            })
+            console.log(parms.id + ':记录成功');
+        }
     }
 }
 

@@ -1,6 +1,7 @@
 module.exports = app => {
     const mongoose = app.mongoose;
     const HouseSchema = new mongoose.Schema({
+        logr: { type: String },
         id: { type: String },
         title: { type: String },
         type: { type: String },
