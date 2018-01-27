@@ -1,5 +1,16 @@
 {
   "config": {
+    "session": {
+      "maxAge": 86400000,
+      "key": "EGG_SESS",
+      "httpOnly": true,
+      "encrypt": true,
+      "overwrite": true,
+      "signed": true,
+      "encode": "<Function encode>",
+      "decode": "<Function decode>",
+      "genid": "<Function anonymous>"
+    },
     "jsonp": {
       "limit": 50,
       "callback": [
@@ -12,34 +23,23 @@
       "errorPageUrl": "",
       "appErrorFilter": null
     },
-    "session": {
-      "maxAge": 86400000,
-      "key": "EGG_SESS",
-      "httpOnly": true,
-      "encrypt": true,
-      "overwrite": true,
-      "signed": true,
-      "encode": "<Function encode>",
-      "decode": "<Function decode>",
-      "genid": "<Function anonymous>"
-    },
     "i18n": {
       "defaultLocale": "en_US",
       "dirs": [
+        "C:\\workspace\\egg\\node_modules\\_egg-session@3.1.0@egg-session\\config\\locales",
         "C:\\workspace\\egg\\node_modules\\_egg-jsonp@2.0.0@egg-jsonp\\config\\locales",
         "C:\\workspace\\egg\\node_modules\\_egg-onerror@2.0.0@egg-onerror\\config\\locales",
-        "C:\\workspace\\egg\\node_modules\\_egg-session@3.0.0@egg-session\\config\\locales",
         "C:\\workspace\\egg\\node_modules\\_egg-i18n@2.0.0@egg-i18n\\config\\locales",
         "C:\\workspace\\egg\\node_modules\\_egg-watcher@3.0.0@egg-watcher\\config\\locales",
         "C:\\workspace\\egg\\node_modules\\_egg-multipart@2.0.0@egg-multipart\\config\\locales",
-        "C:\\workspace\\egg\\node_modules\\_egg-development@2.0.0@egg-development\\config\\locales",
+        "C:\\workspace\\egg\\node_modules\\_egg-development@2.1.0@egg-development\\config\\locales",
         "C:\\workspace\\egg\\node_modules\\_egg-schedule@3.1.1@egg-schedule\\config\\locales",
         "C:\\workspace\\egg\\node_modules\\_egg-logrotator@3.0.1@egg-logrotator\\config\\locales",
-        "C:\\workspace\\egg\\node_modules\\_egg-static@2.0.0@egg-static\\config\\locales",
+        "C:\\workspace\\egg\\node_modules\\_egg-static@2.1.0@egg-static\\config\\locales",
         "C:\\workspace\\egg\\node_modules\\_egg-view@2.0.0@egg-view\\config\\locales",
         "C:\\workspace\\egg\\node_modules\\_egg-cors@2.0.0@egg-cors\\config\\locales",
         "C:\\workspace\\egg\\node_modules\\_egg-mongoose@2.1.1@egg-mongoose\\config\\locales",
-        "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\locales",
+        "C:\\workspace\\egg\\node_modules\\_egg@2.3.0@egg\\config\\locales",
         "C:\\workspace\\egg\\config\\locales"
       ],
       "queryField": "locale",
@@ -69,7 +69,8 @@
       "watchDirs": [],
       "ignoreDirs": [],
       "fastReady": false,
-      "reloadOnDebug": true
+      "reloadOnDebug": true,
+      "overrideDefault": false
     },
     "logrotator": {
       "filesRotateByHour": null,
@@ -236,6 +237,10 @@
         "maxFreeSockets": 256
       }
     },
+    "meta": {
+      "enable": true,
+      "logging": false
+    },
     "coreMiddleware": [
       "cors",
       "meta",
@@ -259,6 +264,7 @@
       "responseTimeout": 60000
     },
     "middleware": [
+      "notfoundHandler",
       "errorHandler"
     ],
     "coreMiddlewares": [
@@ -273,9 +279,11 @@
       "i18n"
     ],
     "appMiddlewares": [
+      "notfoundHandler",
       "errorHandler"
     ],
     "appMiddleware": [
+      "notfoundHandler",
       "errorHandler"
     ],
     "multipartParseOptions": {
@@ -292,6 +300,17 @@
     }
   },
   "plugins": {
+    "session": {
+      "enable": true,
+      "package": "egg-session",
+      "name": "session",
+      "dependencies": [],
+      "optionalDependencies": [],
+      "env": [],
+      "from": "C:\\workspace\\egg\\node_modules\\_egg@2.3.0@egg\\config\\plugin.js",
+      "path": "C:\\workspace\\egg\\node_modules\\_egg-session@3.1.0@egg-session",
+      "version": "3.1.0"
+    },
     "jsonp": {
       "enable": true,
       "package": "egg-jsonp",
@@ -301,7 +320,7 @@
         "security"
       ],
       "env": [],
-      "from": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\plugin.js",
+      "from": "C:\\workspace\\egg\\node_modules\\_egg@2.3.0@egg\\config\\plugin.js",
       "path": "C:\\workspace\\egg\\node_modules\\_egg-jsonp@2.0.0@egg-jsonp",
       "version": "2.0.0"
     },
@@ -314,20 +333,9 @@
         "jsonp"
       ],
       "env": [],
-      "from": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\plugin.js",
+      "from": "C:\\workspace\\egg\\node_modules\\_egg@2.3.0@egg\\config\\plugin.js",
       "path": "C:\\workspace\\egg\\node_modules\\_egg-onerror@2.0.0@egg-onerror",
       "version": "2.0.0"
-    },
-    "session": {
-      "enable": true,
-      "package": "egg-session",
-      "name": "session",
-      "dependencies": [],
-      "optionalDependencies": [],
-      "env": [],
-      "from": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\plugin.js",
-      "path": "C:\\workspace\\egg\\node_modules\\_egg-session@3.0.0@egg-session",
-      "version": "3.0.0"
     },
     "i18n": {
       "enable": true,
@@ -336,7 +344,7 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\plugin.js",
+      "from": "C:\\workspace\\egg\\node_modules\\_egg@2.3.0@egg\\config\\plugin.js",
       "path": "C:\\workspace\\egg\\node_modules\\_egg-i18n@2.0.0@egg-i18n",
       "version": "2.0.0"
     },
@@ -347,7 +355,7 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\plugin.js",
+      "from": "C:\\workspace\\egg\\node_modules\\_egg@2.3.0@egg\\config\\plugin.js",
       "path": "C:\\workspace\\egg\\node_modules\\_egg-watcher@3.0.0@egg-watcher",
       "version": "3.0.0"
     },
@@ -358,7 +366,7 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\plugin.js",
+      "from": "C:\\workspace\\egg\\node_modules\\_egg@2.3.0@egg\\config\\plugin.js",
       "path": "C:\\workspace\\egg\\node_modules\\_egg-multipart@2.0.0@egg-multipart",
       "version": "2.0.0"
     },
@@ -373,9 +381,9 @@
       "env": [
         "local"
       ],
-      "from": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\plugin.js",
-      "path": "C:\\workspace\\egg\\node_modules\\_egg-development@2.0.0@egg-development",
-      "version": "2.0.0"
+      "from": "C:\\workspace\\egg\\node_modules\\_egg@2.3.0@egg\\config\\plugin.js",
+      "path": "C:\\workspace\\egg\\node_modules\\_egg-development@2.1.0@egg-development",
+      "version": "2.1.0"
     },
     "schedule": {
       "enable": true,
@@ -384,7 +392,7 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\plugin.js",
+      "from": "C:\\workspace\\egg\\node_modules\\_egg@2.3.0@egg\\config\\plugin.js",
       "path": "C:\\workspace\\egg\\node_modules\\_egg-schedule@3.1.1@egg-schedule",
       "version": "3.1.1"
     },
@@ -397,7 +405,7 @@
       ],
       "optionalDependencies": [],
       "env": [],
-      "from": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\plugin.js",
+      "from": "C:\\workspace\\egg\\node_modules\\_egg@2.3.0@egg\\config\\plugin.js",
       "path": "C:\\workspace\\egg\\node_modules\\_egg-logrotator@3.0.1@egg-logrotator",
       "version": "3.0.1"
     },
@@ -408,9 +416,9 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\plugin.js",
-      "path": "C:\\workspace\\egg\\node_modules\\_egg-static@2.0.0@egg-static",
-      "version": "2.0.0"
+      "from": "C:\\workspace\\egg\\node_modules\\_egg@2.3.0@egg\\config\\plugin.js",
+      "path": "C:\\workspace\\egg\\node_modules\\_egg-static@2.1.0@egg-static",
+      "version": "2.1.0"
     },
     "view": {
       "enable": true,
@@ -419,7 +427,7 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "C:\\workspace\\egg\\node_modules\\_egg@2.0.0@egg\\config\\plugin.js",
+      "from": "C:\\workspace\\egg\\node_modules\\_egg@2.3.0@egg\\config\\plugin.js",
       "path": "C:\\workspace\\egg\\node_modules\\_egg-view@2.0.0@egg-view",
       "version": "2.0.0"
     },

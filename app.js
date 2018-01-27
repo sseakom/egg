@@ -28,4 +28,5 @@ module.exports = app => {
     }
 
     app.runSchedule('jobSpider');
+    app.runSchedule('housing');
 };
