@@ -1,9 +1,9 @@
 module.exports = app => {
     const mongoose = app.mongoose;
-    const HouseSchema = new mongoose.Schema({
+    const AverageSchema = new mongoose.Schema({
         average: { type: String },
         crawlingDate: { type: String },
     });
 
-    return mongoose.model('House', HouseSchema);
+    return mongoose.model('Average', AverageSchema);
 }

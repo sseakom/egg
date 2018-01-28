@@ -30,6 +30,18 @@
       "POST"
     ],
     "paramNames": [],
+    "path": "/average",
+    "regexp": "/^\\/average(?:\\/(?=$))?$/",
+    "stack": [
+      "wrappedController"
+    ]
+  },
+  {
+    "name": null,
+    "methods": [
+      "POST"
+    ],
+    "paramNames": [],
     "path": "/zhaopin",
     "regexp": "/^\\/zhaopin(?:\\/(?=$))?$/",
     "stack": [
