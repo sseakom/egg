@@ -9,6 +9,7 @@ module.exports = app => {
     router.get('/', controller.home.index);
 
     router.post('/allHouse', controller.post.allHouse);
+    router.post('/average', controller.post.average);
 
     router.post('/zhaopin', controller.post.zhaopin);
 

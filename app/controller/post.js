@@ -7,7 +7,7 @@ class PostController extends Controller {
         console.log('allHouse:', this.ctx.request.body);
         const crawlingDate = new Date().setHours(0, 0, 0, 0) + "";
         const req = this.ctx.request.body;
-        let pageSize = 10;
+        let pageSize = 50;
         let pageNo = 1;
         if (req.pageSize > 0) {
             pageSize = req.pageSize
@@ -15,13 +15,23 @@ class PostController extends Controller {
         if (req.pageNo > 0) {
             pageNo = req.pageNo
         }
-        const allRes = await this.ctx.model.House.find({ crawlingDate });
         const res = await this.ctx.model.House.find({ crawlingDate }).limit(pageSize).skip(pageSize * (pageNo - 1));
         this.ctx.body = {
             code: 200,
             msg: '成功',
-            count: allRes.length,
             result: res,
+        };
+    }
+    async average() {
+        console.log('average:', this.ctx.request.body);
+        const crawlingDate = new Date().setHours(0, 0, 0, 0) + "";
+        const req = this.ctx.request.body;
+        const allRes = await this.ctx.model.House.find({ crawlingDate });
+        this.ctx.body = {
+            code: 200,
+            msg: '成功',
+            count: allRes.length,
+            result: allRes,
         };
     }
     async tiobe() {
