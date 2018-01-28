@@ -25,8 +25,7 @@ class Housing extends Subscription {
                 totalPage = parseInt(index(this).text());
             }
         });
-        console.log('totalPage: ', totalPage);
-        // totalPage = 1
+
         for (let i = 1; i <= totalPage; i++) {
             const url = "http://wuhu.58.com/ershoufang/pn" + i;
             const body = await request(url);
@@ -34,6 +33,36 @@ class Housing extends Subscription {
             await spider(loaded);
 
             await Ut.sleep(60000);
+            await setAverage();
+        }
+
+        async function setAverage() {
+            const todayRes = await self.ctx.model.House.find({ crawlingDate })
+            let sum = 0;
+            if (todayRes.length) {
+                for (let key in todayRes) {
+                    sum += todayRes[key].price
+                }
+            }
+            const aveRes = self.ctx.model.Average.find({ crawlingDate })
+            if (aveRes.length) {
+                if (aveRes[0].count < todayRes.length) {
+                    await self.ctx.model.Average.update({
+                        crawlingDate
+                    }, {
+                        $set: {
+                            average: (sum / todayRes.length * 100) / 100,
+                            count: todayRes.length,
+                        }
+                    })
+                }
+            } else {
+                await self.ctx.model.Average.create({
+                    average: (sum / todayRes.length * 100) / 100,
+                    count: todayRes.length,
+                    crawlingDate
+                })
+            }
         }
 
         async function spider(cheerio) {

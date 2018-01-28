@@ -1,6 +1,6 @@
 'use strict';
 const Controller = require('egg').Controller;
-const crawlingDate = (new Date().setHours(0, 0, 0, 0) - 100000) + "";
+const crawlingDate = new Date().setHours(0, 0, 0, 0) + "";
 
 class PostController extends Controller {
     async allHouse() {
@@ -23,13 +23,14 @@ class PostController extends Controller {
     }
     async average() {
         console.log('average:', this.ctx.request.body);
-        const allRes = await this.ctx.model.House.find({ crawlingDate });
-        this.ctx.body = {
-            code: 200,
-            msg: '成功',
-            count: allRes.length,
-            result: allRes,
-        };
+        const allRes = await this.ctx.model.Average.find({ crawlingDate });
+        if (allRes.length) {
+            this.ctx.body = {
+                code: 200,
+                msg: '成功',
+                result: allRes[0],
+            };
+        }
     }
     async tiobe() {
         console.log('tiobe:', this.ctx.request.body);
