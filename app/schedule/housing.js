@@ -101,17 +101,13 @@ class Housing extends Subscription {
 
         async function addItem(parms) {
             const HouseRes = await self.ctx.model.House.find({
-                postdate: parms.postdate,
                 logr: parms.logr,
+                crawlingDate
             });
             if (!HouseRes.length) {
                 add(parms);
             } else {
-                if (HouseRes[HouseRes.length - 1].crawlingDate == crawlingDate) {
-                    console.log(parms.id + ':有重复记录', parms.title);
-                } else {
-                    add(parms);
-                }
+                console.log(parms.id + ':有重复记录', parms.title);
             }
         }
 
