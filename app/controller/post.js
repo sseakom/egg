@@ -1,11 +1,10 @@
 'use strict';
-const fs = require('fs');
 const Controller = require('egg').Controller;
+const crawlingDate = (new Date().setHours(0, 0, 0, 0) - 100000) + "";
 
 class PostController extends Controller {
     async allHouse() {
         console.log('allHouse:', this.ctx.request.body);
-        const crawlingDate = new Date().setHours(0, 0, 0, 0) + "";
         const req = this.ctx.request.body;
         let pageSize = 50;
         let pageNo = 1;
@@ -24,8 +23,6 @@ class PostController extends Controller {
     }
     async average() {
         console.log('average:', this.ctx.request.body);
-        const crawlingDate = new Date().setHours(0, 0, 0, 0) + "";
-        const req = this.ctx.request.body;
         const allRes = await this.ctx.model.House.find({ crawlingDate });
         this.ctx.body = {
             code: 200,
