@@ -31,9 +31,8 @@ class Housing extends Subscription {
             const body = await request(url);
             const loaded = cheerio.load(body);
             await spider(loaded);
-
-            await Ut.sleep(60000);
             await setAverage();
+            await Ut.sleep(60000);
         }
 
         async function setAverage() {
@@ -44,25 +43,14 @@ class Housing extends Subscription {
                     sum += todayRes[key].price
                 }
             }
-            const aveRes = self.ctx.model.Average.find({ crawlingDate })
-            if (aveRes.length) {
-                if (aveRes[0].count < todayRes.length) {
-                    await self.ctx.model.Average.update({
-                        crawlingDate
-                    }, {
-                        $set: {
-                            average: (sum / todayRes.length * 100) / 100,
-                            count: todayRes.length,
-                        }
-                    })
-                }
-            } else {
-                await self.ctx.model.Average.create({
-                    average: (sum / todayRes.length * 100) / 100,
-                    count: todayRes.length,
-                    crawlingDate
-                })
-            }
+            await self.ctx.model.Average.remove({
+                crawlingDate
+            })
+            await self.ctx.model.Average.create({
+                average: parseInt(sum / todayRes.length * 100) / 100,
+                count: todayRes.length,
+                crawlingDate
+            })
         }
 
         async function spider(cheerio) {
